@@ -67,12 +67,13 @@ try {
     elseif($_GET['action'] == 'contactPost'){
       $lastname = htmlspecialchars($_POST['lastname']);
       $firstname = htmlspecialchars($_POST['firstname']);
-      $mail = htmlspecialchars($_POST['mail']);
-      $objet = htmlspecialchars($_POST['objet']);
+      $email = htmlspecialchars($_POST['email']);
+      $phone = htmlspecialchars($_POST['phone']);
+      $object = htmlspecialchars($_POST['object']);
       $message = htmlspecialchars($_POST['message']);
 
-      if (!empty($lastname) && (!empty($firstname) && (!empty($mail) && (!empty($objet) && (!empty($message)))))) {
-      $controllerFront->contactPost($lastname, $firstname, $mail, $objet, $message);
+      if (!empty($lastname) && (!empty($firstname) && (!empty($email) && (!empty($phone) && (!empty($object) && (!empty($message))))))) {
+      $controllerFront->contactPost($lastname, $firstname, $email, $phone, $object, $message);
     } else {
       throw new Exception('Tous les champs ne sont pas remplis!!');
     }

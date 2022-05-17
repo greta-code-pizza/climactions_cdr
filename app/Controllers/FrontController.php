@@ -51,13 +51,13 @@ class FrontController extends Controller {
 
 
     // fonction envoyer contact en bdd 
-    public function contactPost($lastname, $firstname, $mail, $objet, $message)
+    public function contactPost($lastname, $firstname, $email, $phone, $object, $message)
     {
         $contactManager = new \Climactions\Models\ContactModel();
         
 
-        if (filter_var($mail, FILTER_VALIDATE_EMAIL)) {
-            $Mail = $contactManager->postMail($lastname, $firstname, $mail, $objet, $message);
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $Mail = $contactManager->postMail($lastname, $firstname, $email, $phone, $object, $message);
             echo "Mail envoyé";
         } else {
             echo "échec";

@@ -18,22 +18,123 @@ class AdminController extends Controller {
 		require $this->viewAdmin('adminInscription');
 	}
 	
-	public function createAdmin($lastname, $firstname, $mail, $city, $password) {
+	public function createAdmin($lastname, $firstname, $email, $password) {
 		
 		$adminManager = new \Climactions\Models\AdminModel();
-		$admin = $adminManager->creatAdmin($lastname, $firstname, $mail, $city, $password);
+		$admin = $adminManager->creatAdmin($lastname, $firstname, $email, $password);
 		
 		require $this->viewAdmin('adminInscription');
 	}
 
+	// affichage des pages de l'administration
 
-	public function sendMail()
+	public function accountAdmin()
 	{
+		require $this->viewAdmin('account');
+	}
+	public function homeAdmin()
+	{
+		require $this->viewAdmin('home');
+	}
+	public function emailAdmin()
+	{
+		require $this->viewAdmin('email');
+	}
+	public function resourceAdmin()
+	{
+		require $this->viewAdmin('resource');
+	}
+	public function opinionAdmin()
+	{
+		require $this->viewAdmin('opinions');
+	}
+	public function addressBookAdmin()
+	{
+		require $this->viewAdmin('addressBook');
+	}
 
-$mail = new PHPMailer(true);
+	// les méthodes de la page Resource.php (CRUD)
+
+	public function createResource()
+	{
+		require $this->viewAdmin('formResource');
+	}
+	public function updateResource()
+	{
+		require $this->viewAdmin('updateResource');
+	}
+	public function deleteResource()
+	{
+		require $this->viewAdmin('delete');
+	}
+
+	// les méthodes de la page Email.php
+
+	public function readEmail()
+	{
+		require $this->viewAdmin('readEmail');
+	}
+	public function deleteEmail()
+	{
+		require $this->viewAdmin('delete');
+	}
+	
+
+	public function connexionAdmin() {
+		require $this->viewAdmin('connexionAdmin');
+	}
+
+	public function connexion($email,$password){
+		$adminManager = new \Climactions\Models\AdminModel();
+		$connexAdm = $adminManager->collectPassword($email,$password);
+		$result = $connexAdm->fetch();
+		if(!empty($result)){
+			$isPasswordCorrect = password_verify($password,$result['password']);
+
+			$_SESSION['email'] = $result['email']; // transformation des variables recupérées en session
+			$_SESSION['password'] = $result['password'];
+			$_SESSION['id'] = $result['id'];
+			$_SESSION['firstname'] = $result['firstname'];
+			$_SESSION['lastname'] = $result['lastname'];
+			
+			if ($isPasswordCorrect) {
+
+				require $this->viewAdmin('home');
+			}else{
+				
+        		echo 'Vos identifiants sont incorrects';
+			}
+		} else{
+			echo "il ya une erreur";
+		}
+	}
+
+	// logout admin 
+	public function deconnexion()
+	{
+		unset($_SESSION['id']);
+        session_destroy();
+        header('Location: indexAdmin.php');
+	}
+
+
+	// go to page forgot_password 
+	public function forgot_password()
+	{
+		require $this->viewAdmin('forgot_password');
+	}
+
+	// change password 
+	public function changePassword()
+	{
+		$adminManager = new \Climactions\Models\AdminModel();
+		$adminController = new \Climactions\Controllers\AdminController();
+		if(isset($_POST['email']))
+		{
+			$mail = new PHPMailer(true);
 		try{
-			// configuration 
-			$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+			// configuration pour voir les bugs
+			// $mail->SMTPDebug = SMTP::DEBUG_SERVER;
 		  
 			// on configure le SMTP 
 			$mail->isSMTP();
@@ -44,62 +145,80 @@ $mail = new PHPMailer(true);
 			$mail->CharSet = 'utf-8';
 		  
 			// destinataires 
-			$mail->addAddress("basket@site.fr");
-			$mail->addCC("copie@site.fr");
-			$mail->addBCC("copiecachee@site.fr");
+			$mail->addAddress($_POST['email']);
+			
 		  
 			// expéditeur 
 			$mail->setFrom('no-reply@site.fr');
 		  
 			// contenu 
 			$mail->isHTML();
-			$mail->Subject = "Sujet du message";
-			$mail->Body = "<p>New test: Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.
-			Cras ultricies ligula sed magna dictum porta. <p>Donec sollicitudin molestie malesuada. Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus convallis </p>quis ac lectus.
-			Curabitur aliquet quam id dui posuere blandit. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta. ";
+			$mail->Subject = "Nouveau mot de passe";
+			$password = uniqid();
+			$mail->Body = "Bonjour ".$_POST['email']. "Votre nouveau mot de passe: ".$password;
+			$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+			$changePassword = $adminManager->getNewPassword($hashedPassword);
 			
-			$mail->AltBody = "Curabitur non nulla sit amet nisl tempus convallis quis ac lectus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem.
-			Cras ultricies ligula sed magna dictum porta. Donec sollicitudin molestie malesuada. Cras ultricies ligula sed magna dictum porta. Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.
-			Curabitur aliquet quam id dui posuere blandit. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Proin eget tortor risus. Cras ultricies ligula sed magna dictum porta.";
+	
 			// on envoie 
 			$mail->send();
 			echo "Message envoyé";
+			
 		  
 		} 
 		catch (Exception)
 		{
 			echo "Message non envoyé. Erreur: {$mail->ErrorInfo}";
 		}
+		}
 
-
-		require $this->viewAdmin('sendmail');
-
+		header('Location: indexAdmin.php');
 	}
 
-
-	public function connexionAdmin() {
-		require $this->viewAdmin('connexionAdmin');
+	// page create new password 
+	public function pageNewPassword()
+	{
+		require $this->viewAdmin('pageNewPassword');
 	}
 
-	public function connexion($mail,$password){
-		$adminManager = new \Climactions\Models\AdminModel();
-		$connexAdm = $adminManager->collectPassword($mail,$password);
-		$result = $connexAdm->fetch();
-		if(!empty($result)){
-			$isPasswordCorrect = password_verify($password,$result['password']);
+	// confirm new passsword 
+	public function createNewPassword($id, $oldPassword, $newPassword)
+	{
 
-			$_SESSION['mail'] = $result['mail']; // transformation des variables recupérées en session
-			$_SESSION['password'] = $result['password'];
-			$_SESSION['id'] = $result['id'];
-			$_SESSION['firstname'] = $result['firstname'];
-			$_SESSION['lastname'] = $result['lastname'];
+		extract($_POST);
+		$validation = true;
+		$erreur = [];
 
-			if ($isPasswordCorrect) {
+		if(empty($oldPassword) || empty($newPassword) || empty($passwordConfirm)){
+			$validation = false;
+			$erreur[] = "Tous les champs sont requis!";
+		}
 
-				require $this->viewAdmin('dashboard');
-			}else{
-				
-        		echo 'Vos identifiants sont incorrects';
+		if ($newPassword){
+			$adminManager = new \Climactions\Models\AdminModel();
+			$getPassword = $adminManager->newPasswordAdmin($id);
+
+			$verifPassword = $getPassword->fetch();
+			$isPasswordCorrect = password_verify($oldPassword, $verifPassword['password']);
+
+			if(!$isPasswordCorrect){
+				$validation = false;
+				$erreur[] = "le mot de passe actuel est erroné";
+			}
+
+			if ($newPassword != $passwordConfirm){
+				$validation = false;
+				$erreur[] = 'Vos mots de passe ne sont pas identiques';
+			}
+			
+			if($isPasswordCorrect && $newPassword === $passwordConfirm){
+				$newPass = password_hash($newPassword, PASSWORD_DEFAULT);
+				$changePassword = $adminManager->createNewPassword($id, $newPass);
+
+				require $this->viewAdmin('account');
+			} else{
+				require $this->viewAdmin('pageNewPassword');
+				return $erreur;
 			}
 		}
 	}
@@ -179,4 +298,6 @@ $mail = new PHPMailer(true);
 		
 		header('Location: indexAdmin.php?action=pageAddArticle');
 	}
+
+	
 }

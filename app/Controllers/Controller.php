@@ -16,4 +16,5 @@ class Controller {
 		return 'app/Views/admin/' . $view . '.php';
 
 	}
+	
 }

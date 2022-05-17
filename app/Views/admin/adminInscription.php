@@ -1,6 +1,6 @@
 <?php
 
-require 'app/Views/frontend/layouts/header.php';
+require 'app/Views/frontend/layouts/nav.php';
 ?>
 
 
@@ -12,7 +12,7 @@ require 'app/Views/frontend/layouts/header.php';
 
         <div>
             <label for="lastname"> nom:</label>
-            <input type="text" name="lastname" id="lastname" placeholder="Votre nom" require>
+            <input type="text" name="lastname" id="lastname" placeholder="Votre nom" required>
         </div>
 
         <div>
@@ -21,17 +21,14 @@ require 'app/Views/frontend/layouts/header.php';
         </div>
 
         <div>
-            <label for="mail"> email:</label>
-            <input type="email" name="mail" id="mail" placeholder="Votre email" required>
+            <label for="email"> email:</label>
+            <input type="email" name="email" id="email" placeholder="Votre email" required>
         </div>
         <div>
             <label for="password"> Mot de passe</label>
             <input type="password" name="password" id="password" placeholder="Votre mot de passe" required>
         </div>
-        <div>
-            <label for="city"> ville:</label>
-            <input type="text" name="city" id="city" placeholder="Votre ville" required>
-        </div>
+       
         <button type="submit">Soumettre</button>
     </form>
 </section>

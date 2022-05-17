@@ -10,16 +10,16 @@
         <input type="text" id="firstname" name="firstname" placeholder="Votre Prénom" required />
     </div>
     <div>
-        <label for="mail">e-mail : *</label>
-        <input type="email" id="mail" name="mail" placeholder="Votre e-mail" required />
+        <label for="email">e-mail : *</label>
+        <input type="email" id="email" name="email" placeholder="Votre e-mail" required />
     </div>
     <div>
         <label for="phone">Téléphone : *</label>
         <input type="phone" id="phone" name="phone" placeholder="Votre Numéro de Téléphone" required />
     </div>
     <div>
-        <label for="objet">Objet : *</label>
-        <input type="objet" id="objet" name="objet" placeholder="objet de votre demande" required />
+        <label for="object">Objet : *</label>
+        <input type="object" id="object" name="object" placeholder="objet de votre demande" required />
     </div>
     <div>
         <label for="message">Message : *</label>
