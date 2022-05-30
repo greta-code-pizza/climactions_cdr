@@ -20,30 +20,30 @@ require_once "app/Views/admin/layouts/search.php";
 </div>
 
 <!-- TO DO : Faire une boucle pour afficher les ressources -->
-<div class="bg">
-    <div class="table-results">
 
-        <ul class="table-item">
-            <li>titre de mon article</li>
-            <li class="article-title">contenu de mon article</li>
-            <li class="article-created-at">date de création</li>
-            <li class="flex">
-                <span class="btn"><a href="#"><i class="fa-solid fa-pen"></i></a></span>
-                <span class="btn"><a class="delete" href="#"><i class="fa-solid fa-trash-can"></i></a></span>
-            </li>
-        </ul>
+<div class="table-results">
 
-        <ul class="table-item">
-            <li>Evenement</li>
-            <li class="article-title">blablabla</li>
-            <li class="article-created-at">date de création</li>
-            <li class="flex">
-                <span class="btn"><a href="#"><i class="fa-solid fa-pen"></i></a></span>
-                <span class="btn"><a class="delete" href="#"><i class="fa-solid fa-trash-can"></i></a></span>
-            </li>
-        </ul>
+    <ul class="table-item">
+        <li>titre de mon article</li>
+        <li class="article-title">contenu de mon article</li>
+        <li class="article-created-at">date de création</li>
+        <li class="flex">
+            <span class="btn"><a href="#"><i class="fa-solid fa-pen"></i></a></span>
+            <span class="btn"><a class="delete" href="#"><i class="fa-solid fa-trash-can"></i></a></span>
+        </li>
+    </ul>
 
-    </div>
+    <ul class="table-item">
+        <li>titre de mon article</li>
+        <li class="article-title">contenu de mon article</li>
+        <li class="article-created-at">date de création</li>
+        <li class="flex">
+            <span class="btn"><a href="#"><i class="fa-solid fa-pen"></i></a></span>
+            <span class="btn"><a class="delete" href="#"><i class="fa-solid fa-trash-can"></i></a></span>
+        </li>
+    </ul>
+
 </div>
+
 <?php $content = ob_get_clean(); ?>
 <?php require 'layouts/dashboard.php'; ?>
