@@ -416,6 +416,8 @@ class AdminController extends Controller {
         
     }
 
+	// -----------------------------------------------------------------------
+	
 	public function createResourceMovieBook($data)
 	{
 		
@@ -426,4 +428,27 @@ class AdminController extends Controller {
 		header("Location: app\Views\admin\resource.php");
 
 	}	
+	public function createResourceExpo($data)
+	{
+		
+		$adminManager = new \Climactions\Models\RessourcesModel();
+		
+		$admin = $adminManager->insertResourceExpo($data);
+		
+		header("Location: app\Views\admin\resource.php");
+
+	}	
+	public function createResourceGame($data)
+	{
+		
+		$adminManager = new \Climactions\Models\RessourcesModel();
+		
+		$admin = $adminManager->insertResourceGame($data);
+		
+		header("Location: app\Views\admin\resource.php");
+		
+	}	
+	
+	// -----------------------------------------------------------------------
+
 }

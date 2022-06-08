@@ -236,28 +236,133 @@ try {
 
         // enregistrement d'un image
 
-        elseif($_GET['action'] == 'upload'){
-          isConnect();
-          $file = $_FILES['image'];
-          $path = $backController->upload($file);
-        }
+        // elseif($_GET['action'] == 'upload'){
+        //   isConnect();
+        //   $file = $_FILES['image'];
+        //   $path = $backController->upload($file);
+        // }
 
-        // création d'une ressource (les films et les livres)
+        // ------------------------------
+        // création d'un film ou d'un jeu
+        // ------------------------------
 
         elseif($_GET['action'] == 'create'){
           isConnect();
           
+          $file = $_FILES['image'];
+          $path = $backController->upload($file);
+
           $name = htmlspecialchars($_POST['name']);
           $themeId = htmlspecialchars($_POST['theme']);
-          $image = htmlspecialchars($_POST['image']);
           $content = htmlspecialchars($_POST['content']);
           $quantity = htmlspecialchars($_POST['quantity']);
+          $deposit = htmlspecialchars($_POST['deposit']);
           $publicId = htmlspecialchars($_POST['public']);
           $typeId = htmlspecialchars($_POST['type']);
           $conditionId = htmlspecialchars($_POST['condition']);
           $adminId= htmlspecialchars($_POST['admin']);
+
+          $data = [
+            "name" => $name,
+            "theme" => $themeId,
+            "image" => $path,
+            "content" => $content,
+            "quantity" => $quantity,
+            "deposit" => $deposit,
+            "public" => $publicId,
+            "type" => $typeId,
+            "condition" => $conditionId,
+            "admin" => $adminId
+          ];
           
           $backController->createResourceMovieBook($data);
+        }
+
+        // -------------------------
+        // création d'une exposition
+        // -------------------------
+
+        elseif($_GET['action'] == 'create-expo'){
+          isConnect();
+          
+          $file = $_FILES['image'];
+          $path = $backController->upload($file);
+          
+          $name = htmlspecialchars($_POST['name']);
+          $themeId = htmlspecialchars($_POST['theme']);
+          $content = htmlspecialchars($_POST['content']);
+          $quantity = htmlspecialchars($_POST['quantity']);
+          $deposit = htmlspecialchars($_POST['deposit']);         
+          $typeId = htmlspecialchars($_POST['type']);
+          $conditionId = htmlspecialchars($_POST['condition']);
+          $adminId= htmlspecialchars($_POST['admin']);
+
+          $poster = htmlspecialchars($_POST['poster_bool']);
+          $sign = htmlspecialchars($_POST['sign_bool']);
+          
+
+          $data = [
+            "name" => $name,
+            "theme" => $themeId,
+            "image" =>$path,
+            "content" =>$quantity,
+            "quantity" => $quantity,
+            "deposit" => $deposit,
+            "public" => $publicId,
+            "type" => $typeId,
+            "condition" => $conditionId,
+            "admin" => $adminId,
+
+            "poster_bool" => $poster,
+            "sign_bool" => $sign
+          ];
+          
+          $backController->createResourceExpo($data);
+        }
+
+        // -----------------
+        // création d'un jeu
+        // -----------------
+
+        elseif($_GET['action'] == 'create-game'){
+          isConnect();
+          
+          $file = $_FILES['image'];
+          $path = $backController->upload($file);
+          
+          $name = htmlspecialchars($_POST['name']);
+          $themeId = htmlspecialchars($_POST['theme']);
+          $content = htmlspecialchars($_POST['content']);
+          $quantity = htmlspecialchars($_POST['quantity']);
+          $deposit = htmlspecialchars($_POST['deposit']);
+          $publicId = htmlspecialchars($_POST['public']);
+          $typeId = htmlspecialchars($_POST['type']);
+          $conditionId = htmlspecialchars($_POST['condition']);
+          $adminId= htmlspecialchars($_POST['admin']);
+
+          $formatId = htmlspecialchars($_POST['format']);
+
+          $personalityId = htmlspecialchars($_POST["personality"]);
+
+          $data = [
+            "name" => $name,
+            "theme" => $themeId,
+            "image" =>$path,
+            "content" =>$quantity,
+            "quantity" => $quantity,
+            "deposit" => $deposit,
+            "public" => $publicId,
+            "type" => $typeId,
+            "condition" => $conditionId,
+            "admin" => $adminId,
+
+            "format" => $formatId,
+            
+            "personality" =>$personalityId
+         
+          ];
+          
+          $backController->createResourceGame($data);
         }
 
         else{
