@@ -267,7 +267,7 @@ class AdminModel extends Manager
     
     public function deleteEmail($id){
         $bdd = $this->connect();
-        $req = $bdd->prepare('DELETE FROM `contact` 
+        $req = $bdd->prepare('DELETE FROM `email` 
                               WHERE id = ?');
         $req->execute(array($id));
     }
@@ -277,7 +277,7 @@ class AdminModel extends Manager
     public function readEmail($id){
         $bdd = $this->connect();
         $req = $bdd->prepare("SELECT `id`, `lastname`, `firstname`, `email`, `object`, `message`, DATE_FORMAT(created_at, '%d/%m/%Y') AS `date` 
-                             FROM `contact`
+                             FROM `email`
                               WHERE id = ?");
         $req->execute(array($id));
         $email = $req->fetch();
