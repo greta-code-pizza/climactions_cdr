@@ -48,7 +48,16 @@ try {
 
     // afficher un article 
     elseif ($_GET['action'] == 'article') {
-      $controllerFront->article($_GET['id']);
+      $idResource = $_GET['id'];
+    // $idType = $_GET['type'];
+    // var_dump(($_GET['action'] == 'article&id=&type='));die;
+          if((!$idResource)){
+              header('Location: index.php?action=pageArticle');
+          }
+          else{
+
+            $controllerFront->article($idResource);
+          }
     }
     
 

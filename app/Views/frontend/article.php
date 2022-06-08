@@ -1,50 +1,91 @@
 <?php 
 $title = "Clim' Actions";
 $description = "La page affichage d'un article";
-require_once './app/Views/frontend/layouts/header.php'; 
+
 ob_start(); ?>
 
-    <article class="container-article">
-        <h1 class="title">Titre de l'article</h1>
+<section class="container container-article">
+
+    <article>
+
+        <h1 class="title"><?= $article['name']; ?></h1>
+
         <div class="article">
 
             <figure class="img-size">
-                <img src="./Public/img/deplacement-une-affaire-de-choix.jpeg" alt="">
+                <img src="<?= $article['image'] ?>" alt="image de <?= $article['name'] ?>">
             </figure>
 
             <!-- faire des conditions -->
             <section class="info">
                 <h2 class="title">Informations : </h2>
+                
+                <?php
+                if(isset($article['type_id']) && ($article['type_id'] == 4)){
+                    ?>
+                <!-- pour les flyers -->
+                <p class="type">Type : <?= $flyer['type'] ?></p>
+                <p class="theme">Thème : <?= $flyer['theme'] ?></p>
+                <?php }; ?>
+
+                <?php
+                if(isset($article['type_id']) && ($article['type_id'] == 2)){
+                    ?>
                 <!-- pour les livres -->
+                <p class="type">Type : <?= $movieBook['type'] ?></p>
+                <p class="theme">Thème : <?= $movieBook['theme'] ?></p>
+
                 <p class="author">Auteur : </p>
                 <p class="editor">Éditeur : </p>
-                <p class="public">Public :</p>
+                <p class="public">Public : <?= $movieBook['public'] ?></p>
+                <?php }; ?>
+
+                <?php
+                if(isset($article['type_id']) && ($article['type_id'] == 3)){
+                    ?>
                 <!-- pour les films -->
+                <p class="type">Type : <?= $movieBook['type'] ?></p>
+                <p class="theme">Thème : <?= $movieBook['theme'] ?></p>
                 <p class="director">Réalisateur :</p>
                 <p class="producer">Producteur :</p>
-                <p class="public">Public :</p>
+                <p class="public">Public : <?= $movieBook['public'] ?></p>
+                <p class="condition">Condition : <?= $movieBook['condition'] ?></p>
+                <?php }; ?>
+
+                <?php
+                if(isset($article['type_id']) && ($article['type_id'] === 1)){
+                    // var_dump($article['type_id']);die;
+                    ?>
                 <!-- pour les jeux -->
-                <p class="creator">Créateur :</p>
-                <p class="format">Format :</p>
-                <!-- pour les flyers -->
-                <p class="format">Format :</p>
+                <p class="type">Type : <?= $game['type'] ?></p>
+                <p class="theme">Thème : <?= $game['theme'] ?></p>
+                <p class="creator">Créateur : <?= $game['firstname'] ?> <?= $game['lastname'] ?></p>
+                <p class="format">Format : <?= $game['game_format'] ?></p>
+                <p class="public">Public : <?= $game['public'] ?></p>
+                <?php }; ?>
+
+                <!-- quantity -->
+                <p class="format">Quantité : <?= $article['quantity'] ?></p>
                 <!-- la caution -->
-                <p class="format">Caution :</p>
+                <p class="format">Caution : <?= $article['deposit']." €" ?></p>
+
             </section>
+
 
             <div class="content">
                 <div class="line"></div>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem facilis,
-                    dignissimos ratione
-                    a
-                    nemo explicabo corporis molestias aut delectus optio tempore est alias adipisci possimus,
-                    eligendi
-                    id ad
-                    numquam perspiciatis.</p>
-                <p class="created-at"><strong>Créé le : </strong>18/02/2022</p>
-                </div>
+                <p><?= $article['content'] ?></p>
+                <p class="created-at"><strong>Créé le : </strong><?= $article['created_at'] ?></p>
+
             </div>
+
+        </div>
+
     </article>
-    <a href="#" class="btn">Revenir sur tous les articles</a>
-<?php 
-require_once './app/Views/frontend/layouts/footer.php'; ?>
+    <a href="index.php?action=pageArticle" class="btn">Revenir sur tous les articles</a>
+
+
+</section>
+
+<?php $content = ob_get_clean(); ?>
+<?php require "layouts/template.php";
