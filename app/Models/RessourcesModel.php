@@ -28,10 +28,10 @@ class RessourcesModel extends Manager
     public function afficherDetailArticle()
     {
         $bdd = $this->connect();
-        $id = $_GET['id'];
+        $idResource = $_GET['id'];
         $req = $bdd->prepare("SELECT * FROM resource WHERE id = ?");
 
-        $req->execute([$id]);
+        $req->execute([$idResource]);
         $article = $req->fetch();
 
         return $article;
@@ -118,11 +118,12 @@ class RessourcesModel extends Manager
         AND resource.condition_id = `condition`.id
         AND resource.admin_id = admin.id;");
 
-        $req2 = $bdd->prepare("SELECT staff.name AS staff,role.name AS role
-        FROM staff,role,resource
-        WHERE resource.id = 
+        $req2 = $bdd->prepare("SELECT personality.name AS staff,role.name AS role
+        FROM staff,role,resource,personality
+        WHERE resource.id = ?
         AND resource.id = staff.resource_id
-        AND staff.role_id = role.id;");
+        AND personality.role_id = role.id
+        AND personality.id = staff.personality_id;");
 
         $req->execute(array($idResource));
         $req2->execute(array($idResource));
@@ -145,28 +146,53 @@ class RessourcesModel extends Manager
         AND resource.condition_id = `condition`.id
         AND resource.admin_id = admin.id
         AND game.id_resource = resource.id
-        AND game.id_format = game_format.id;");
+        AND game.id_format = game_format.id");
 
-        $req2 = $bdd->prepare("SELECT staff.name AS staff,role.name AS role
-        FROM staff,role,resource
+        $req2 = $bdd->prepare("SELECT resource.id,personality.name AS staff,role.name AS role
+        FROM staff,role,resource,personality
         WHERE resource.id = ?
         AND resource.id = staff.resource_id
-        AND staff.role_id = role.id;");
+        AND personality.role_id = role.id
+        AND personality.id = staff.personality_id;");
 
         $req->execute(array($idResource));
         $req2->execute(array($idResource));
+        // var_dump($idResource);
         $game = $req->fetch();
         $staff = $req2->fetchAll();
-
+        $array = array();
+        array_push($array, $game, $staff);
+        // return $array;
         return $game;
-        return $staff;
-    }
+        // return $staff;
+        
+        }
 
+    // public function selectStaffGame($idResource){
+    //     $bdd = $this->connect();
+
+    //     $req2 = $bdd->prepare("SELECT personality.name AS staff,role.name AS role
+    //     FROM staff,role,resource,personality
+    //     WHERE resource.id = ?
+    //     AND resource.id = staff.resource_id
+    //     AND personality.role_id = role.id
+    //     AND personality.id = staff.personality_id;");
+
+
+    //     return $staff;
+    // }
+
+    // public function selectGame($idResource){
+    //     selectResourceGame();
+    //     selectStaffGame();
+    // }
+        
+        
     public function selectResourceExpo($idResource){
         $bdd = $this->connect();
 
         $req = $bdd->prepare("SELECT resource.id,resource.name,theme.`name` AS theme,`condition`.name AS `condition`,`type`.`name` AS `type`,public.name AS public,firstname,lastname,image,content,deposit,quantity,DATE_FORMAT(modified_at, '%d/%m/%Y') AS `date`,poster_bool,sign_bool
-        FROM resource,`type`,admin,`condition`,theme,exposure
+        FROM resource,`type`,admin,`condition`,theme,exposure, public
         WHERE resource.id = ?
         AND resource.type_id = `type`.id
         AND resource.theme_id = theme.id
