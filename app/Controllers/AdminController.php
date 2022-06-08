@@ -160,8 +160,16 @@ class AdminController extends Controller {
 
 	public function createResource()
 	{
+		$resources = new \Climactions\Models\RessourcesModel();
+		$types = $resources->selectType();
+		$themes = $resources->selectTheme();
+		$conditions = $resources->selectCondition();
+		$publics = $resources->selectPublic();
+		$formats = $resources->selectGameFormat();
+		$personalities = $resources->selectPersonality();
 		require $this->viewAdmin('formResource');
 	}
+
 	public function updateResource()
 	{
 		require $this->viewAdmin('updateResource');

@@ -12,7 +12,7 @@ jQuery(document).ready(function($){
 
 $("#select-block").change(function() {
 
-    if ( $("#select-block").val() == "game" ){
+    if ( $("#select-block").val() == "1" ){
         
         $(".format-expo").hide();
         $(".format-game").show();
@@ -20,24 +20,26 @@ $("#select-block").change(function() {
         $(".name-author").show();    
     }
     
-    if ( $("#select-block").val() == "movie" ){ 
+    if ( $("#select-block").val() == "3" ){ 
         
+        $(".name-author").show();
         $(".format-expo").hide();
         $(".format-game").hide();   
         $(".name-public").show();
     }
    
-    if ( $("#select-block").val() == "book" ){
+    if ( $("#select-block").val() == "2" ){
+        
         
         $(".format-flyer").hide();
         $(".format-game").hide();
         $(".format-expo").hide();
-
+        $(".name-author").show();
         $(".name-public").show();
 
     }
 
-    if ( $("#select-block").val() == "expo" ){
+    if ( $("#select-block").val() == "4" ){
         
         $(".format-game").hide();
         $(".name-public").hide();

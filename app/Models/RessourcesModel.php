@@ -74,7 +74,7 @@ class RessourcesModel extends Manager
     public function selectCondition()
     {
         $bdd = $this->connect();
-        $req = $bdd->prepare("SELECT id,name FROM condition");
+        $req = $bdd->prepare("SELECT id,name FROM `condition`");
 
         $req->execute(array());
         $conditions = $req->fetchAll();
@@ -92,6 +92,27 @@ class RessourcesModel extends Manager
         $publics = $req->fetchAll();
 
         return $publics;
+    }
+
+    public function selectPersonality(){
+        $bdd = $this->connect();
+        $req = $bdd->prepare("SELECT personality.id AS id,personality.name AS name,role.name AS role FROM personality,role
+        WHERE personality.role_id = role.id");
+
+        $req->execute(array());
+        $personalities = $req->fetchAll();
+
+        return $personalities;
+    }
+
+    public function selectGameFormat(){
+        $bdd = $this->connect();
+        $req = $bdd->prepare("SELECT id,name FROM game_format");
+
+        $req->execute(array());
+        $formats = $req->fetchAll();
+
+        return $formats;
     }
 
     public function selectResources(){
