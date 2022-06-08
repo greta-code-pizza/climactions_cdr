@@ -37,6 +37,10 @@
   scroll-behavior: smooth;
 }
 
+body {
+  background-color: var(--bg-articles);
+}
+
 .container {
   width: 100%;
   max-width: 1200px;
@@ -201,6 +205,7 @@ a {
   border: 5px solid var(--primary);
   border-radius: 10px;
   width: 80%;
+  background-color: var(--white);
 }
 
 #encart h2 {
@@ -244,7 +249,6 @@ a {
   width: 65%;
   margin: 30px auto;
   text-align: center;
-  /* max-height: 100vh; */
 }
 
 #contenu #articles #article h3 {
@@ -289,7 +293,7 @@ a {
 
 .partenaires-img {
   width: 100%;
-  margin: 0 auto;
+  margin: 25px auto 60px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
@@ -676,25 +680,54 @@ a {
 }
 
 .main-bloc-form form h1 {
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
+  color: var(--primary);
+  font-weight: 700;
 }
 
 .bloc-form label {
   display: block;
-  text-align: start;
   margin-bottom: 5px;
+  text-align: start;
+  font-family: "Roboto", sans-serif;
 }
 
-.bloc-form input {
+.bloc-form input{
   height: 30px;
   margin-bottom: 1rem;
   width: 100%;
-  padding-left: 5px;
+  padding: 15px 15px 15px 10px;
+}
+
+.bloc-form textarea {
+  width: 100%;
+  height: 100px;
+  margin-bottom: 0.5rem;
+  padding: 5px 15px 5px 10px;
+  font-family: "Roboto", sans-serif;
 }
 
 .main-bloc-form form p {
-  font-size: 1rem;
+  font-size: 0.8rem;
   text-align: initial;
+}
+
+#contact-checkbox-div {
+  display: flex;
+  justify-content: start;
+  margin-bottom: 1rem;
+}
+
+#contact-checkbox-div input {
+  width: 22px; 
+  height: 22px;
+}
+
+
+#contact-checkbox-div label {
+  width: 100%;
+  text-align: initial;
+  margin-left: 0.5rem;
 }
 
 .send-contact {
@@ -703,7 +736,7 @@ a {
   color: white;
   border: none;
   font-weight: 600;
-  border-radius: 50px;
+  border-radius: 10px;
   margin: 3rem auto 1.5rem;
   text-align: center;
   width: 50%;
@@ -716,16 +749,11 @@ a {
 .send-contact:hover {
   transform: scale(1.05);
 }
+
 .activeBtn {
   background-color: var(--primary);
 }
 
-textarea {
-  height: 100px;
-  width: 100%;
-  margin-bottom: 2rem;
-  padding-left: 5px;
-}
 .msg-error {
   background-color: #E01A1A;
   color: white;

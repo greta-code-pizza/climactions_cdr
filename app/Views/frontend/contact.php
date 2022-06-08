@@ -22,41 +22,40 @@ ob_start();
             endif;
             ?>
                 <div class="bloc-form">
-                    <label for="lastname">Nom : </label>
+                    <label for="lastname">Nom : *</label>
                     <input type="text" id="lastname" name="lastname" placeholder="Votre Nom" value="<?php if (isset($_POST['lastname'])) echo htmlspecialchars($_POST['lastname'])
                      ?>" required />
                 </div>
                 <div class="bloc-form">
-                    <label for="firstname">Prénom :</label>
+                    <label for="firstname">Prénom : *</label>
                     <input type="text" id="firstname" name="firstname" placeholder="Votre Prénom" value="<?php if (isset($_POST['firstname'])) echo htmlspecialchars($_POST['firstname'])
                      ?>" required />
                 </div>
                 <div class="bloc-form">
                     <label for="email">E-mail : *</label>
-                    <input type="email" id="email" name="email" placeholder="Votre e-mail" value="<?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email'])
+                    <input type="email" id="email" name="email" placeholder="Votre E-mail" value="<?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email'])
                      ?>" required />
                 </div>
                 <div class="bloc-form">
                     <label for="confirmEmail">Confirmation E-mail : *</label>
-                    <input type="email" id="confirmEmail" name="confirmEmail" placeholder="Votre e-mail" required />
+                    <input type="email" id="confirmEmail" name="confirmEmail" placeholder="Votre E-mail" required />
                 </div>
                 <div class="bloc-form">
                     <label for="object">Objet : *</label>
-                    <input type="object" id="object" name="object" placeholder="objet de votre demande" required />
+                    <input type="object" id="object" name="object" placeholder="Objet de votre demande" required />
                 </div>
                 <div class="bloc-form">
                     <label for="message">Message : *</label>
                     <textarea id="message" name="message" placeholder="Votre message" required></textarea>
                 </div>
-                <div>
+                <div id="contact-checkbox-div">
                     <input type="checkbox" id="autorisation" required />
-                    <label for="autorisation">&nbsp; En soumettant ce formulaire, j'autorise ce site à conserver mes
+                    <label for="autorisation">En soumettant ce formulaire, j'autorise ce site à conserver mes
                         données personnelles. Aucune exploitation commerciale ne sera faite des données
                         conservées. *</label>
                 </div>
-
-                <button class="send-contact" type="submit">Envoyer</button>
                 <p>* Champs obligatoires</p>
+                <button class="send-contact" type="submit">Envoyer</button>
             </form>
         </div>
 
