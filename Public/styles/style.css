@@ -715,7 +715,6 @@ a {
 #contact-checkbox-div {
   display: flex;
   justify-content: start;
-  align-items: center;
   margin-bottom: 1rem;
 }
 
