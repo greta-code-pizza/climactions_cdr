@@ -26,7 +26,3 @@ composer update
 -Php (structure MVC)
 -SQL
 -JavaScript
-
-
-
-

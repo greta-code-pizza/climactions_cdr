@@ -1,6 +1,6 @@
 <?php $title = "Clim' Actions";
 $description = "La page d'accueil";
-require_once 'layouts/header.php' ?>
+require_once 'layouts/header.php';?>
 
 <main id="contenu">
     <h1>Votre centre de ressources</h1>
@@ -17,14 +17,20 @@ require_once 'layouts/header.php' ?>
             <?php foreach ($lastArticles as $article) { ?>
             <article id="article">
                 <h3><?= $article['name'] ?></h3>
-                <!-- <p> <//?= $article['genre']; ?></p> -->
-                <a href="#"> <img src="./Public/img/deplacement-une-affaire-de-choix.jpeg"
-                        alt="Déplacement une affaire de choix">
+                <a href="#"> <img src="<?= $article['image'] ?>"
+                        alt="<?= $article['name'] ?>">
                 </a>
                 <a href="index.php?action=article&id=<?=$article['id']?>&type=<?=$article['type_id']?>" class="bouton-article">En voir plus</a>
             </article>
             <?php } ?>
             <a href="index.php?action=pageArticle" id="bouton-ressources">Découvrir les autres ressources</a>
+        </div>
+    </section>
+    <section id="partenaires" class="container">
+        <h2>Nos partenaires</h2>
+        <div class="partenaires-img">
+            <img src="./Public/img/partenaires/logo-ademe.svg" alt="ademe">
+            <img src="./Public/img/partenaires/logo-gbs.jpg" alt="greta bretagne sud">
         </div>
     </section>
 </main>

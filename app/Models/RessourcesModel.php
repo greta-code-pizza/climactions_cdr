@@ -148,8 +148,8 @@ class RessourcesModel extends Manager
         AND game.id_resource = resource.id
         AND game.id_format = game_format.id");
 
-        $req2 = $bdd->prepare("SELECT resource.id,personality.name AS staff,role.name AS role
-        FROM staff,role,resource,personality
+       $req2 = $bdd->prepare("SELECT resource.id,personality.name AS staff,role.name AS role
+       FROM staff,role,resource,personality
         WHERE resource.id = ?
         AND resource.id = staff.resource_id
         AND personality.role_id = role.id
@@ -192,8 +192,8 @@ class RessourcesModel extends Manager
         $bdd = $this->connect();
 
         $req = $bdd->prepare("SELECT resource.id,resource.name,theme.`name` AS theme,`condition`.name AS `condition`,`type`.`name` AS `type`,public.name AS public,firstname,lastname,image,content,deposit,quantity,DATE_FORMAT(modified_at, '%d/%m/%Y') AS `date`,poster_bool,sign_bool
-        FROM resource,`type`,admin,`condition`,theme,exposure, public
-        WHERE resource.id = ?
+      FROM resource,`type`,admin,`condition`,theme,exposure,public
+       WHERE resource.id = ?
         AND resource.type_id = `type`.id
         AND resource.theme_id = theme.id
         AND resource.public_id = public.id
@@ -225,6 +225,79 @@ class RessourcesModel extends Manager
             "condition_id" => $data['condition'],
             "admin_id" => $data['admin']
         ));
+
+        $req2 = $bdd->prepare("INSERT INTO staff (personality_id,resource_id)
+        VALUES (:personality_id,:id_resource)");
+
+        $req2->execute(array(
+            "personality_id" => $data['personality'],
+            "resource_id" => $req1->lastInsertId()
+        ));
+    }
+
+    public function insertResourceExpo($data)
+    {
+        $bdd = $this->connect();
+        $req1 = $bdd->prepare("INSERT INTO resource (name,image,content,quantity,deposit,type_id,condition_id,theme_id,admin_id) 
+        VALUES (:name,:theme_id,:image,:content,:quantity,:deposit,:type_id,:condition_id,:admin_id)");
+        
+        $req1->execute(array(
+            "name" => $data['name'],
+            "theme_id" => $data['theme'],
+            "image" =>$data['image'],
+            "content" =>$data['content'],
+            "quantity" => $data['quantity'],
+            "deposit" => $data['deposit'],
+            "type_id" => $data['type'],
+            "condition_id" => $data['condition'],
+            "admin_id" => $data['admin']
+        ));
+
+        $req2 = $bdd->prepare("INSERT INTO exposure (poster_bool,sign_bool,resource_id)
+        VALUES (:poster_bool,:sign_bool,:resource_id)");
+
+        $req2->execute(array(
+            "poster_bool" => $data['poster'],
+            "sign_bool" => $data['sign'],
+            "resource_id" => $req1->lastInsertId()
+
+        ));
+    }
+
+    public function insertResourceGame($data)
+    {
+        $bdd = $this->connect();
+        $req1 = $bdd->prepare("INSERT INTO resource (name,image,content,quantity,deposit,public_id,type_id,condition_id,theme_id,admin_id) 
+        VALUES (:name,:theme_id,:image,:content,:quantity,:deposit,public_id,:type_id,:condition_id,:admin_id)");
+        
+        $req1->execute(array(
+            "name" => $data['name'],
+            "theme_id" => $data['theme'],
+            "image" =>$data['image'],
+            "content" =>$data['content'],
+            "quantity" => $data['quantity'],
+            "deposit" => $data['deposit'],
+            "deposit" => $data['public'],
+            "type_id" => $data['type'],
+            "condition_id" => $data['condition'],
+            "admin_id" => $data['admin']
+        ));
+
+        $req2 = $bdd->prepare("INSERT INTO game (id_format,id_resource)
+        VALUES (:id_format,:id_resource)");
+
+        $req2->execute(array(
+            "id_format" => $data['format'], 
+            "id_resource" => $req1->lastInsertId()
+        ));
+
+        $req3 = $bdd->prepare("INSERT INTO staff (personality_id,resource_id)
+        VALUES (:personality_id,:id_resource)");
+
+        $req3->execute(array(
+            "personality_id" => $data['personality'],
+            "resource_id" => $req1->lastInsertId()
+        ));
     }
 
     public function updateResourceMovieBook($data)
@@ -248,34 +321,52 @@ class RessourcesModel extends Manager
         ));
     }
 
+    public function updateResourceExpo($data)
+    {
+        $bdd = $this->connect();
+        $req1 = $bdd->prepare("UPDATE resource,exposure SET name = :name, theme_id = :theme_id, image = :image, content = :content, quantity = :quantity,deposit = :deposit, public_id = :public_id, type_id = :type_id, condition_id = :condition_id, theme_id = :theme_id, admin_id = :admin_id, poster_bool = :poster_bool, sign_bool = sign_bool 
+        WHERE resource.id = :id
+        AND resource.id = exposure.resource_id;");
+        
+        $req1->execute(array(
+            "id" => $data['id'],
+            "name" => $data['name'],
+            "theme_id" => $data['theme'],
+            "image" =>$data['image'],
+            "content" =>$data['content'],
+            "quantity" => $data['quantity'],
+            "deposit" => $data['deposit'],
+            "public_id" => $data["public"],
+            "type_id" => $data['type'],
+            "condition_id" => $data['condition'],
+            "admin_id" => $data['admin'],
+            "poster_bool" => $data['poster'],
+            "sign_bool" => $data['sign']
+        ));
+    }
 
-
-    // public function updateFlyer($idRessources,$name,$image,$content,$quantite,$ademe,$caution,$catalogue,$condition,$theme,$location,$is_validated,$format,$public){
-    //     $bdd = $this->connect();
-    //     $req = $bdd->prepare("UPDATE ressources,film
-    //     SET name = :name,image = :image,content = :content ,quantite = :quantite ,ademe = :ademe ,caution = :caution,catalogue = :catalogue, condition_id = :condition ,theme_id = :theme_id ,location_id = :location_id ,is_validated = :is_validated ,format = :format ,public_id = :public_id 
-    //     WHERE ressources.id = :ressources_id
-    //     AND ressources.id = flyers.ressource_id");
-
-    //     $data = [
-    //         ":name" => $name,
-    //         ":image" => $image,
-    //         ":content" => $content,
-    //         ":quantite" => $quantite,
-    //         ":ademe" => $ademe,
-    //         ":caution" => $caution,
-    //         ":catalogue" => $catalogue,
-    //         ":condition_id" => $condition,
-    //         ":theme_id" => $theme,
-    //         ":location_id" => $location,
-    //         ":is_validated" => $is_validated,
-    //         ":format" => $format,
-    //         ":public_id" => $public,
-    //         ":ressources_id" => $idRessources
-    //     ];
-
-    //     $req->execute($data);
-    // }
+    public function updateGame($data)
+    {
+        $bdd = $this->connect();
+        $req1 = $bdd->prepare("UPDATE resource,game SET name = :name, theme_id = :theme_id, image = :image, content = :content, quantity = :quantity,deposit = :deposit, public_id = :public_id, type_id = :type_id, condition_id = :condition_id, theme_id = :theme_id, admin_id = :admin_id, id_format = :id_format
+        WHERE resource.id = :id
+        AND resource.id = game.id_resource;");
+        
+        $req1->execute(array(
+            "id" => $data['id'],
+            "name" => $data['name'],
+            "theme_id" => $data['theme'],
+            "image" =>$data['image'],
+            "content" =>$data['content'],
+            "quantity" => $data['quantity'],
+            "deposit" => $data['deposit'],
+            "public_id" => $data["public"],
+            "type_id" => $data['type'],
+            "condition_id" => $data['condition'],
+            "admin_id" => $data['admin'],
+            "id_format" => $data['format']
+        ));
+    }
 
     public function deleteRessource($idRessources){
         $bdd = $this->connect();

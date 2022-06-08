@@ -4,9 +4,9 @@
             <h2>Menu</h2>
             <ul id="menu-pied">
                 <li><a href="index.php">Accueil</a></li>
-                <li><a href="#">Ressources</a></li>
+                <li><a href="index.php?action=pageArticle">Ressources</a></li>
                 <li><a href="index.php?action=contact">Contact</a></li>
-                <li><a href="#">Connexion</a></li>
+                <li><a href="indexAdmin.php">Connexion</a></li>
             </ul>
         </div>
 

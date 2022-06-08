@@ -379,5 +379,51 @@ class AdminController extends Controller {
 		header('Location: indexAdmin.php?action=pageAddArticle');
 	}
 
-	
+	// téléchargement d'une image
+
+	// enregistrement d'une image
+    public function upload(array $file)
+    {
+        // récupération des valeurs de $_FILES
+        if (isset($file)) {
+            $name = $file['name'];
+            $tmpName = $file['tmp_name'];
+            $error = $file['error'];
+            $size = $file['size'];
+        }
+
+        // séparation du nom de l'image et de son extension 
+        $tabExtension = explode('.', $name);
+        // transformation de l'extension en minuscule
+        $extension = strtolower(end($tabExtension));
+        // extensions accepté
+        $extensions = ['jpg', 'png', 'jpeg', 'gif', 'webp'];
+        // taille maximum d'une image
+        $maxSize = 40000000;
+        // si le nom de l'extension, la taille maximum et le code d'erreur est égal à 0 (aucune erreur de téléchargement)...
+        if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
+            // créer un nom unique ...
+            $uniqueName = uniqid('', true);
+            // rajouter le point et le nom de l'extension 
+            $file = $uniqueName . "." . $extension;
+            // télécharger l'image      
+            $path = "Public/img/" . $file;
+            $res = move_uploaded_file($tmpName,  $path);
+			return $res;
+        } else {
+            echo 'Une erreur est survenue';
+        }
+        
+    }
+
+	public function createResourceMovieBook($data)
+	{
+		
+		$adminManager = new \Climactions\Models\RessourcesModel();
+		
+		$admin = $adminManager->insertResourceMovieBook($data);
+		
+		header("Location: app\Views\admin\resource.php");
+
+	}	
 }

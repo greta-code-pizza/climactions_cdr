@@ -144,7 +144,7 @@ class AdminModel extends Manager
     public function updateArticle($idArticle, $title, $content)
     {
         $bdd = $this->connect();
-        $req = $bdd->prepare('UPDATE article SET title = :title , content = :content WHERE id = :id');
+        $req = $bdd->prepare('UPDATE `article` SET title = :title , content = :content WHERE id = :id');
         $req->execute([
             'id' => $idArticle,
             'title' => $title,

@@ -52,7 +52,7 @@ ob_start();
                     <input type="checkbox" id="autorisation" required />
                     <label for="autorisation">&nbsp; En soumettant ce formulaire, j'autorise ce site à conserver mes
                         données personnelles. Aucune exploitation commerciale ne sera faite des données
-                        conservées.</label>
+                        conservées. *</label>
                 </div>
 
                 <button class="send-contact" type="submit">Envoyer</button>
