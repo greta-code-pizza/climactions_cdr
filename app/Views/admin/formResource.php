@@ -1,4 +1,7 @@
-<?php ob_start(); ?>
+<?php 
+$title = "Créer un article - CDR Clim'Actions";
+$description = "Créer un article";
+ob_start(); ?>
 
 <section>
 

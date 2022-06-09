@@ -1,4 +1,7 @@
-<?php ob_start(); ?>
+<?php 
+$title = "Vos Ressources - CDR Clim'Actions";
+$description = "Vos Ressources";
+ob_start(); ?>
 
 <h1>Les articles</h1>
 

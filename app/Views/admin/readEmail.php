@@ -1,4 +1,7 @@
-<?php ob_start(); ?>
+<?php 
+$title = "Votre mail - CDR Clim'Actions";
+$description = "Votre mail";
+ob_start(); ?>
 
 <h1>Les emails</h1>
 
