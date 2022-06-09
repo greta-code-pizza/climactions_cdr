@@ -173,7 +173,7 @@ class AdminModel extends Manager
     public function emailPage($firstEmail, $perPage)
     {
         $bdd = $this->connect();
-        $req = $bdd->prepare("SELECT `id`, `lastname`, `firstname`, `email`, `object`, `message`, DATE_FORMAT(created_at, '%d/%m/%Y') AS `date` 
+        $req = $bdd->prepare("SELECT `id`, `lastname`, `firstname`, `email`, `object`, `message`, DATE_FORMAT(created_at, '%d/%m/%Y') AS `date`,`read`
                               FROM `email` 
                               ORDER BY `created_at` ASC LIMIT :firstemail, :perpage");
                               $req->bindValue(':firstemail', $firstEmail, \PDO::PARAM_INT);
@@ -199,7 +199,7 @@ class AdminModel extends Manager
     {
         $bdd = $this->connect();
 
-        $req = $bdd->prepare("SELECT id, lastname, firstname, message, DATE_FORMAT(created_at, '%d/%m/%Y') AS `date` 
+        $req = $bdd->prepare("SELECT id, lastname, firstname, message, DATE_FORMAT(created_at, '%d/%m/%Y') AS `date`,`read` 
                                 FROM email 
                                 WHERE lastname LIKE :query 
                                 OR firstname LIKE :query
@@ -210,6 +210,15 @@ class AdminModel extends Manager
     
         $searchEmail = $req->fetchAll();
         return $searchEmail;
+    }
+
+    public function readValidate($adminId,$id)
+    {
+        $bdd = $this->connect();
+        $req = $bdd->prepare("UPDATE email SET admin_id = ?, `read` = 1
+                            WHERE id = ?");
+
+        $req->execute(array($adminId,$id));
     }
 
     /* ----------------------------------------------------------------------*/
@@ -274,12 +283,13 @@ class AdminModel extends Manager
 
     // lire un email
 
-    public function readEmail($id){
+    public function readEmail($id,$adminId){
         $bdd = $this->connect();
-        $req = $bdd->prepare("SELECT `id`, `lastname`, `firstname`, `email`, `object`, `message`, DATE_FORMAT(created_at, '%d/%m/%Y') AS `date` 
-                             FROM `email`
-                              WHERE id = ?");
-        $req->execute(array($id));
+        $req = $bdd->prepare("SELECT admin.firstname AS prenom,admin.lastname AS nom,`email`.`id`,`admin`.`id`, `email`.`lastname`, `email`.`firstname`, `email`.`email`, `object`, `message`, DATE_FORMAT(created_at, '%d/%m/%Y') AS `date` 
+                             FROM `email`,`admin`
+                              WHERE email.id = ?
+                              AND `admin`.id = ?");
+        $req->execute(array($id,$adminId));
         $email = $req->fetch();
         return $email;
     }

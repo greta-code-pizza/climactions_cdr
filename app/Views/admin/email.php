@@ -21,12 +21,16 @@
         <div class="bg">
             <?php foreach ($search as $email) { ?>
             <div class="table-results">
-                <ul class="table-item">
-                    <li><?= $email["firstname"] . " " . $email["lastname"] ?></li>
+                <?php if($email['read'] == 0 ):?>
+                    <ul class="table-item gras">
+                <?php else: ?>
+                    <ul class="table-item lu">
+                <?php endif; ?>
+                    <li ><?= $email["firstname"] . " " . $email["lastname"] ?></li>
                     <li><?= $email["message"]?></li>
                     <li><?= $email["date"]?></li>
                     <li class="flex">
-                        <span class="btn"><a href="indexAdmin.php?action=readEmail&id=<?= $email['id']?>"
+                        <span class="btn"><a href="indexAdmin.php?action=readEmail&id=<?= $email['id']?>&read=<?=$email['read']?>"
                                 title="Lire"><i class="fa-solid fa-eye"></i></a></span>
                         <span class="btn"><a class="delete"
                                 href="indexAdmin.php?action=deleteEmail&id=<?= $email['id'] ?>" title="Supprimer"><i
@@ -53,12 +57,16 @@
         <?php foreach ($emails as $email) { ?>
         <div class="table-results">
 
-            <ul class="table-item">
+            <?php if($email['read'] == 0 ):?>
+                    <ul class="table-item gras">
+                <?php else: ?>
+                    <ul class="table-item lu">
+                <?php endif; ?>
                 <li><?= $email["firstname"] . " " . $email["lastname"] ?></li>
                 <li><?= $email["message"]?></li>
                 <li><?= $email["date"]?></li>
                 <li class="flex">
-                    <span class="btn"><a href="indexAdmin.php?action=readEmail&id=<?= $email['id']?>" title="Lire"><i
+                    <span class="btn"><a href="indexAdmin.php?action=readEmail&id=<?= $email['id']?>&read=<?=$email['read']?>" title="Lire"><i
                                 class="fa-solid fa-eye"></i></a></span>
                     <span class="btn"><a class="delete" href="indexAdmin.php?action=deleteEmail&id=<?= $email['id'] ?>"
                             title="Supprimer"><i class="fa-solid fa-trash-can"></i></a></span>

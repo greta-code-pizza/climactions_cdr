@@ -218,7 +218,9 @@ try {
         elseif($_GET['action'] == 'readEmail'){
           // isConnect();
           $id = $_GET['id'];
-          $backController->readEmail($id);
+          $read = $_GET['read'];
+          $adminId = $_SESSION['id'];
+          $backController->readEmail($id,$read,$adminId);
         }
         elseif($_GET['action'] == 'deleteEmail'){
           isConnect();
