@@ -160,7 +160,11 @@ a {
   padding: 10px 0;
 }
 
-#bandeau #navigation-bandeau #menu li a {
+.active-front {
+  color: var(--primary);
+}
+
+.color-font {
   color: var(--text-primary);
 }
 
@@ -190,6 +194,7 @@ a {
   margin-top: 20px;
   cursor: pointer;
 }
+
 
 /* ------------------ body ----------------  */
 #contenu h1 {
@@ -878,7 +883,7 @@ p.last {
   color: var(--text-secondary);
 }
 
-.txt-error p, a {
+.txt-error p, .txt-error a {
   font-size: 1.5rem;
   color: var(--text-secondary);
   text-align: center;

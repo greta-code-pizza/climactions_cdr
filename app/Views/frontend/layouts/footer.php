@@ -46,6 +46,8 @@
 
 
 <script src="./Public/scripts/main.js"></script>
+<script src="./Public/scripts/active-front.js"></script>
+
 
 </body>
 
