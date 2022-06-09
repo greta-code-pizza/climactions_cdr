@@ -227,13 +227,11 @@ class AdminController extends Controller {
 		
 			
 			if ($isPasswordCorrect) {
-
 				require $this->viewAdmin('home');
-			}else{
-				
+			} else {
         		echo 'Vos identifiants sont incorrects';
 			}
-		} else{
+		} else {
 			echo "il ya une erreur, ce compte n'existe pas!";
 		}
 	}
@@ -243,7 +241,7 @@ class AdminController extends Controller {
 	{
 		unset($_SESSION['id']);
         session_destroy();
-        header('Location: indexAdmin.php');
+        header('Location:/');
 	}
 
 

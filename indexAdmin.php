@@ -256,16 +256,15 @@ try {
           $backController->createResourceMovieBook($data);
         }
 
-        else{
+        else {
           require "app/Views/errors/404.php";
           // throw new Exception("La page demandée n'existe pas", 404);
         }
        
         
 
-  }else{
-   $backController->connexionAdmin();
-
+  } else {
+      $backController->connexionAdmin();
  }
         
 } catch (Exception $e) {
