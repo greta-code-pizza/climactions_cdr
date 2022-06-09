@@ -173,7 +173,7 @@ class AdminModel extends Manager
     public function emailPage($firstEmail, $perPage)
     {
         $bdd = $this->connect();
-        $req = $bdd->prepare("SELECT `id`, `lastname`, `firstname`, `email`, `object`, `message`, DATE_FORMAT(created_at, '%d/%m/%Y') AS `date` 
+        $req = $bdd->prepare("SELECT `id`, `lastname`, `firstname`, `email`, `object`, `message`, DATE_FORMAT(created_at, '%d/%m/%Y') AS `date`,`read`
                               FROM `email` 
                               ORDER BY `created_at` ASC LIMIT :firstemail, :perpage");
                               $req->bindValue(':firstemail', $firstEmail, \PDO::PARAM_INT);
@@ -199,7 +199,7 @@ class AdminModel extends Manager
     {
         $bdd = $this->connect();
 
-        $req = $bdd->prepare("SELECT id, lastname, firstname, message, DATE_FORMAT(created_at, '%d/%m/%Y') AS `date` 
+        $req = $bdd->prepare("SELECT id, lastname, firstname, message, DATE_FORMAT(created_at, '%d/%m/%Y') AS `date`,`read` 
                                 FROM email 
                                 WHERE lastname LIKE :query 
                                 OR firstname LIKE :query
@@ -211,6 +211,13 @@ class AdminModel extends Manager
         $searchEmail = $req->fetchAll();
         return $searchEmail;
     }
+
+    // public function readValidate($id)
+    // {
+    //     $bdd = $this->connect();
+
+    //     $req = $bdd->prepare()
+    // }
 
     /* ----------------------------------------------------------------------*/
 

@@ -178,6 +178,14 @@ h1 {
   align-items: center;
 }
 
+.gras {
+  font-weight: 800;
+}
+
+.lu {
+  font-weight: 400;
+}
+
 .table-item-addressBook {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

@@ -21,8 +21,12 @@
         <div class="bg">
             <?php foreach ($search as $email) { ?>
             <div class="table-results">
-                <ul class="table-item">
-                    <li><?= $email["firstname"] . " " . $email["lastname"] ?></li>
+                <?php if($email['read'] == 0 ):?>
+                    <ul class="table-item gras">
+                <?php else: ?>
+                    <ul class="table-item lu">
+                <?php endif; ?>
+                    <li ><?= $email["firstname"] . " " . $email["lastname"] ?></li>
                     <li><?= $email["message"]?></li>
                     <li><?= $email["date"]?></li>
                     <li class="flex">
@@ -53,7 +57,7 @@
         <?php foreach ($emails as $email) { ?>
         <div class="table-results">
 
-            <ul class="table-item">
+            <ul class="table-item gras">
                 <li><?= $email["firstname"] . " " . $email["lastname"] ?></li>
                 <li><?= $email["message"]?></li>
                 <li><?= $email["date"]?></li>
