@@ -315,7 +315,7 @@ a {
 }
 
 
-/* ---------------Page de tout les articles-------- */
+/* ---------------Page de tous les articles-------- */
 
 .button {
   display: inline-block;
@@ -429,6 +429,7 @@ a {
 
 .grid{
   width: 100%;
+  min-height: 200px;
 }
 
 /* ---- .element-item ---- */
