@@ -9,7 +9,7 @@
         <!-- le type -->
         <div class="item-form type">
             <label for="type">Type</label>
-            <select id="select-block" name="type" id="type" required>
+            <select id="select-block" name="type" id="type" >
                 <option value="#">Choisir</option>
                 <option class="item" value="game">Jeu</option>
                 <option class="item" value="movie">Film</option>
@@ -21,17 +21,17 @@
         <!-- le titre     -->
         <div class="item-form name">
             <label for="name">Titre</label>
-            <input type="text" name="name" id="name" required>
+            <input type="text" name="name" id="name" >
         </div>
 
         <!-- le thème  -->
         <!-- TO DO : FAIRE UNE BOUCLE -->
         <div class="item-form ">
-            <label for="content">Thème</label>
-            <select name="type" id="type">
-                <option value="">thème 1</option>
-                <option value="">thème 2</option>
-                <option value="">thème 3</option>
+            <label for="theme">Thème</label>
+            <select name="theme" id="theme">
+                <option value="1">thème 1</option>
+                <option value="2">thème 2</option>
+                <option value="3">thème 3</option>
             </select>
         </div>
 
@@ -39,35 +39,35 @@
 
         <div class="item-form image">
             <label for="image">Image</label>
-            <input type="file" name="image" id="image" required>
+            <input type="file" name="image" id="image" >
         </div>
 
         <!-- le contenu -->
         <div class="item-form content">
             <p class="content-label">Contenu</p>
-            <textarea aria-label="content" required="required" name="editor1" id="editor1" cols="30" rows="8">
+            <textarea aria-label="content" name="editor1" id="editor1" cols="30" rows="8">
             </textarea>
         </div>
 
         <!-- la quantité -->
         <div class="item-form quantite">
             <label for="quantite">Quantité</label>
-            <input type="number" value="1" min=1 name="quantity" id="quantite" required>
+            <input type="number" value="1" min=1 name="quantity" id="quantite" >
         </div>
 
         <!-- la caution -->
         <div class="item-form caution">
             <label for="caution">Caution</label>
-            <input type="text" name="deposit" id="caution" required>
+            <input type="number" name="deposit" id="caution" >
         </div>
 
         <!-- état -->
         <div class="item-form condition">
             <label for="condition">État</label>
-            <select name="condition" id="condition" required>
-                <option value="">Très bon état</option>
-                <option value="">Bon état</option>
-                <option value="">État correct</option>
+            <select name="condition" id="condition" >
+                <option value="1">Très bon état</option>
+                <option value="2">Bon état</option>
+                <option value="3">État correct</option>
             </select>
         </div>
 
@@ -77,16 +77,16 @@
 
         <div class="item-form  name-author">
             <label for="name-editor">Auteur</label>
-            <input type="text" name="personality" id="name-author" required>
+            <input type="text" name="personality" id="name-author" >
         </div>
 
         <!-- format jeu -->
         <div class="item-form format-game">
             <label for="format-game">Format jeu</label>
-            <select name="type" id="format-game" required>
-                <option value="">Format 1</option>
-                <option value="">Format 2</option>
-                <option value="">Format 3</option>
+            <select name="format-game" id="format-game" >
+                <option value="1">Format 1</option>
+                <option value="2">Format 2</option>
+                <option value="3">Format 3</option>
             </select>
         </div>
 
@@ -106,10 +106,10 @@
         <!-- public -->
         <div class="item-form name-public">
             <label for="name-public">Public</label>
-            <select name="name-public" id="name-public">
-                <option value="#">1</option>
-                <option value="#">2</option>
-                <option value="#">3</option>
+            <select name="public" id="name-public">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
             </select>
         </div>
 

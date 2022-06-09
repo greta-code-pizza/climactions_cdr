@@ -408,8 +408,8 @@ class AdminController extends Controller {
             $file = $uniqueName . "." . $extension;
             // télécharger l'image      
             $path = "Public/img/" . $file;
-            $res = move_uploaded_file($tmpName,  $path);
-			return $res;
+            move_uploaded_file($tmpName,  $path);
+			return $path;
         } else {
             echo 'Une erreur est survenue';
         }
@@ -440,10 +440,12 @@ class AdminController extends Controller {
 	}	
 	public function createResourceGame($data)
 	{
-		
+				
 		$adminManager = new \Climactions\Models\RessourcesModel();
 		
-		$admin = $adminManager->insertResourceGame($data);
+		$adminManager->insertResourceGame($data);
+		
+		// var_dump($admin); die;
 		
 		header("Location: app\Views\admin\resource.php");
 		
