@@ -437,6 +437,10 @@ a {
   min-height: 200px;
 }
 
+.grid article {
+  margin: 10px 10px 65px;
+}
+
 /* ---- .element-item ---- */
 .element-item {
   color: #262524;
