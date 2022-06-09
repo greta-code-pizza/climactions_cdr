@@ -7,7 +7,7 @@ require_once 'layouts/header.php';?>
     <section id="encart" class="container">
         <h2>Comment fonctionne le nouveau centre de ressources ?</h2>
         <p>Bienvenue sur notre nouveau centre de ressources. Comme vous pouvez le voir, il est encore en construction. Nous espérons que vous trouverez ici tout ce dont vous avez besoin pour réserver nos ressources.</p>
-        <p> Nous vous invitons à vous rendre sur la page regroupant pour voir <a href="/index.php?action=pageArticles">les différentes ressources disponibles</a>.</p>
+        <p> Nous vous invitons à vous rendre sur la page regroupant pour voir <a href="index.php?action=pageArticle">les différentes ressources disponibles</a>.</p>
         <p> Après avoir fait vos choix, n'hésitez pas à nous envoyer un message via le formulaire de contact, pour nous faire part de vos attentes afin que l'on puisse valider votre réservation. </p>
     </section>
     <section id="articles">
