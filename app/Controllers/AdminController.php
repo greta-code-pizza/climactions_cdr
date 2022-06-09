@@ -181,13 +181,14 @@ class AdminController extends Controller {
 
 	// les méthodes de la page Email.php
 
-	public function readEmail($id,$read)
+	public function readEmail($id,$read,$adminId)
 	{
 		$email = new \Climactions\Models\AdminModel();
-		$readEmail = $email->readEmail($id);
-		if($read = 0){
-			$readValidate = $email->readValidate($id);
+		
+		if($read == 0){
+			$readValidate = $email->readValidate($adminId,$id);
 		}
+		$readEmail = $email->readEmail($id,$adminId);
 		require $this->viewAdmin('readEmail');
 	}
 	public function deleteEmail($id)

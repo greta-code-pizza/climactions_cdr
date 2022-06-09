@@ -212,12 +212,14 @@ class AdminModel extends Manager
         return $searchEmail;
     }
 
-    // public function readValidate($id)
-    // {
-    //     $bdd = $this->connect();
+    public function readValidate($adminId,$id)
+    {
+        $bdd = $this->connect();
+        $req = $bdd->prepare("UPDATE email SET admin_id = ?, `read` = 1
+                            WHERE id = ?");
 
-    //     $req = $bdd->prepare()
-    // }
+        $req->execute(array($adminId,$id));
+    }
 
     /* ----------------------------------------------------------------------*/
 
@@ -281,12 +283,13 @@ class AdminModel extends Manager
 
     // lire un email
 
-    public function readEmail($id){
+    public function readEmail($id,$adminId){
         $bdd = $this->connect();
-        $req = $bdd->prepare("SELECT `id`, `lastname`, `firstname`, `email`, `object`, `message`, DATE_FORMAT(created_at, '%d/%m/%Y') AS `date` 
-                             FROM `email`
-                              WHERE id = ?");
-        $req->execute(array($id));
+        $req = $bdd->prepare("SELECT admin.firstname AS prenom,admin.lastname AS nom,`email`.`id`,`admin`.`id`, `email`.`lastname`, `email`.`firstname`, `email`.`email`, `object`, `message`, DATE_FORMAT(created_at, '%d/%m/%Y') AS `date` 
+                             FROM `email`,`admin`
+                              WHERE email.id = ?
+                              AND `admin`.id = ?");
+        $req->execute(array($id,$adminId));
         $email = $req->fetch();
         return $email;
     }
