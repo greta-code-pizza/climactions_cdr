@@ -32,7 +32,6 @@ try {
 
     $backController = new \Climactions\Controllers\AdminController();
     
-    
     if (isset($_GET['action'])) {
         
         if($_GET['action'] == 'pageCreationAdmin') {
@@ -43,7 +42,7 @@ try {
 
         // create an admin 
         elseif($_GET['action'] == 'creatAdmin') {
-            // isConnect();
+            isConnect();
             $lastname   = htmlspecialchars($_POST['lastname']);
             $firstname  = htmlspecialchars($_POST['firstname']);
             $email       = htmlspecialchars($_POST['email']);
@@ -54,9 +53,7 @@ try {
             $erreur = $backController->createAdmin($lastname, $firstname, $email, $password);
         }
 
-
         elseif($_GET['action'] == 'home') {
-          // isConnect();
           $email = htmlspecialchars($_POST['email']);
           $password = htmlspecialchars($_POST['password']);
           if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($password)) {
@@ -75,7 +72,6 @@ try {
         
         // go to page forgot_password
         elseif($_GET['action'] == 'forgot_password'){
-         
           $backController->forgot_password();
         }
 
@@ -90,7 +86,6 @@ try {
           $backController->pageNewPassword();
           }
           
-
         // confirm new password 
         elseif($_GET['action'] == 'newPasswordPost'){
           isConnect();
@@ -105,7 +100,6 @@ try {
 
         }}
 
-        
         elseif ($_GET['action'] == 'pageAddArticle') {
           isConnect();
           $backController->pageAddArticle();
@@ -147,7 +141,7 @@ try {
         }
 
         elseif($_GET['action'] == 'emailAdmin'){
-          // isConnect();
+          isConnect();
 
           $query = $_POST['query'] ?? "";
 
@@ -168,7 +162,7 @@ try {
         // affichage de la page resources.php (barre de recherche et pagination)
         
         elseif($_GET['action'] == 'resourceAdmin'){
-          // isConnect();
+          isConnect();
 
           $query = $_POST['query'] ?? "";
 
@@ -216,7 +210,7 @@ try {
         // les méthodes de la page email.php
 
         elseif($_GET['action'] == 'readEmail'){
-          // isConnect();
+          isConnect();
           $id = $_GET['id'];
           $read = $_GET['read'];
           $adminId = $_SESSION['id'];
